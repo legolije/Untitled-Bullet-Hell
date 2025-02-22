@@ -1,0 +1,66 @@
+extends CharacterBody2D
+
+var SPEED =150
+var direction = Vector2()
+
+@export var bullet: PackedScene = preload("res://Scenes/normal_bullet.tscn")
+@export var bullet_count: int = 1
+@export_range(0, 360) var arc: float = 0
+@export_range(0, 20) var fire_rate: float = 0.2
+@export var barrel_origin: Node2D
+@export var bullet_speed: int = 10
+
+var can_shoot = true
+
+func _ready():
+	# Create a timer for the cooldown
+	var timer = Timer.new()
+	add_child(timer)
+	timer.one_shot = true
+	timer.timeout.connect(_on_timer_timeout)
+	timer.name = "CooldownTimer"
+
+
+func _physics_process(_delta):
+	var mov_y = Input.get_action_strength("down") - Input.get_action_strength("up")
+	var mov_x = Input.get_action_strength("right") - Input.get_action_strength("left")
+	
+	direction = Vector2(mov_x, mov_y)
+	
+	velocity = direction * SPEED
+	
+	if Input.is_action_pressed("Click") and can_shoot:
+		shoot()
+	
+	
+	if Input.is_action_pressed("left"):
+		$AnimatedSprite2D.play("Walk")
+		$AnimatedSprite2D.flip_h = true
+	else:
+		if Input.is_action_pressed("right"):
+			$AnimatedSprite2D.play("Walk")
+			$AnimatedSprite2D.flip_h = false
+		else:
+				if Input.is_action_pressed("up"):
+					$AnimatedSprite2D.play("Walk")
+				else:
+					if Input.is_action_pressed("down"):
+						$AnimatedSprite2D.play("Walk")
+					else:
+						$AnimatedSprite2D.play("Duck")
+	move_and_slide()
+
+
+
+func shoot():
+	var new_bullet = bullet.instantiate()
+	get_tree().root.call_deferred("add_child", new_bullet)
+	new_bullet.global_position = global_position
+	new_bullet.shoot_towards(get_global_mouse_position())
+
+	can_shoot = false
+	$CooldownTimer.start(fire_rate)
+	
+	
+func _on_timer_timeout():
+	can_shoot = true

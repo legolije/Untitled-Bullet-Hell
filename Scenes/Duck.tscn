@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnu0ym5x4io40"]
+
+[ext_resource type="Script" path="res://Scenes/Duck.gd" id="1_obeyv"]
+[ext_resource type="Texture2D" uid="uid://de5ip2k4vlsya" path="res://Assets/Player.png" id="2_2ei5w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ept73"]
+radius = 21.2132
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pljqb"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4gns"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb7qr"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifcy1"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pnsp"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jtwqk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pljqb")
+}],
+"loop": true,
+"name": &"Duck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4gns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb7qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifcy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pnsp")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 7.5
+}]
+
+[node name="Duck" type="CharacterBody2D"]
+script = ExtResource("1_obeyv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_ept73")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3.125, 3.125)
+sprite_frames = SubResource("SpriteFrames_jtwqk")
+animation = &"Walk"
+autoplay = "Duck"

@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://jlbdyh3bsnk3"]
+
+[ext_resource type="Texture2D" uid="uid://bostrm7v7m0sk" path="res://Assets/meanie.png" id="1_ger2c"]
+
+[sub_resource type="GDScript" id="GDScript_24lvv"]
+script/source = "extends Node2D
+#extends CharacterBody2D
+#
+#enum BossState {
+	#CHASE,
+	#RETREAT,
+	#CIRCLE,
+	#ATTACK
+#}
+#
+#var current_state = BossState.CHASE
+#var player_ref: CharacterBody2D  # Changed to CharacterBody2D
+#var circle_angle = 0.0
+#var safe_distance = 300.0
+#var speed = 200.0
+#
+#func _ready():
+	## Make sure your player node is tagged with group \"player\"
+	#player_ref = get_tree().get_first_node_in_group(\"player\") as CharacterBody2D
+	#if !player_ref:
+		#push_error(\"Player reference not found! Make sure player node is in group 'player'\")
+#
+#func _physics_process(delta):
+	#match current_state:
+		#BossState.CHASE:
+			#var direction = (player_ref.global_position - global_position).normalized()
+			#velocity = direction * speed
+			#move_and_slide()
+#
+		#BossState.RETREAT:
+			#var distance = global_position.distance_to(player_ref.global_position)
+			#if distance < safe_distance:
+				#var direction = (global_position - player_ref.global_position).normalized()
+				#velocity = direction * speed
+				#move_and_slide()
+#
+		#BossState.CIRCLE:
+			#circle_angle += delta
+			#var radius = 200.0
+			#var target_pos = player_ref.global_position + Vector2(
+				#cos(circle_angle) * radius,
+				#sin(circle_angle) * radius
+			#)
+			#var direction = (target_pos - global_position).normalized()
+			#velocity = direction * speed
+			#move_and_slide()
+#
+		#BossState.ATTACK:
+			#execute_attack_pattern()
+#
+#func execute_attack_pattern():
+	## Implement your attack patterns here
+	#pass
+"
+
+[node name="BreadSpawner" type="Node2D"]
+script = SubResource("GDScript_24lvv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4.34375, 4.34375)
+texture = ExtResource("1_ger2c")

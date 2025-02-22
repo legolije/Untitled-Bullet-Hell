@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwwhxx7see3lo"]
+
+[ext_resource type="Script" path="res://Scenes/Trigger.gd" id="1_gv1l8"]
+[ext_resource type="Texture2D" uid="uid://bayltgyf522c" path="res://icon.svg" id="1_magip"]
+
+[node name="Muzzle" type="Node2D"]
+script = ExtResource("1_gv1l8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.394531, 0.382813)
+texture = ExtResource("1_magip")
