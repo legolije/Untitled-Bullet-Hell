@@ -6,7 +6,7 @@ var direction = Vector2()
 @export var bullet: PackedScene = preload("res://Scenes/normal_bullet.tscn")
 @export var bullet_count: int = 1
 @export_range(0, 360) var arc: float = 0
-@export_range(0, 20) var fire_rate: float = 0.2
+@export_range(0, 20) var fire_rate: float = 0.3
 @export var barrel_origin: Node2D
 @export var bullet_speed: int = 10
 
