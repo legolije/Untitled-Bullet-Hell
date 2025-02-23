@@ -12,4 +12,3 @@ func _process(delta):
 func _on_body_entered(body):
 	body.take_damage(5)
 	queue_free()
-
