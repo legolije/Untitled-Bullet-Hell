@@ -9,6 +9,7 @@ func shoot_towards(target_position: Vector2):
 func _process(delta):
 	position += direction * speed * delta
 
-func _on_area_entered(area):
-	# Handle collision logic here
+func _on_body_entered(body):
+	body.take_damage(5)
 	queue_free()
+

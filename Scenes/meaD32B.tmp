@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://jlbdyh3bsnk3"]
+
+[ext_resource type="Texture2D" uid="uid://bostrm7v7m0sk" path="res://Assets/meanie.png" id="1_ger2c"]
+[ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="1_mxpig"]
+[ext_resource type="Script" path="res://Scenes/meanie.gd" id="1_v4c4b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqa5m"]
+shader = ExtResource("1_mxpig")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="Animation" id="Animation_vrdj2"]
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [null, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_seend"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbk7k"]
+_data = {
+"RESET": SubResource("Animation_seend"),
+"flash": SubResource("Animation_vrdj2")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30ly8"]
+size = Vector2(33, 48)
+
+[node name="meanie" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_v4c4b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_eqa5m")
+position = Vector2(3.93391e-06, -3.93391e-06)
+scale = Vector2(2.9375, 2.9375)
+texture = ExtResource("1_ger2c")
+
+[node name="HitAnimation" type="AnimationPlayer" parent="Sprite2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_pbk7k")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, -1)
+shape = SubResource("RectangleShape2D_30ly8")
