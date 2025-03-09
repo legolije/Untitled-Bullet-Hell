@@ -1,12 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwwhxx7see3lo"]
 
 [ext_resource type="Script" path="res://Scenes/Trigger.gd" id="1_gv1l8"]
-[ext_resource type="Texture2D" uid="uid://chpgs0rr86tu6" path="res://Assets/Crosshair.png" id="2_84byx"]
+[ext_resource type="Texture2D" uid="uid://d2gwn5s6traxl" path="res://Assets/Crosshair(The_Best_In_The_World).png" id="2_ghp60"]
 
 [node name="Muzzle" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_gv1l8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -4.76837e-07)
-scale = Vector2(0.978516, 0.949453)
-texture = ExtResource("2_84byx")
+position = Vector2(5.00001, 8.00001)
+scale = Vector2(3.39551, 3.29466)
+texture = ExtResource("2_ghp60")

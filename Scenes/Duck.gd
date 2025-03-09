@@ -5,6 +5,10 @@ extends CharacterBody2D
 @export var bullet: PackedScene = preload("res://Scenes/normal_bullet.tscn")
 @export_range(0, 20) var fire_rate: float = 0.3
 @export_range(1, 1000) var health: float = 100
+@onready var health_bar: ProgressBar = $HealthBar
+@onready var gun: Node2D = $Gun
+@onready var game_over: CanvasLayer = $"../YouDied!"
+
 
 var SPEED = 150
 var direction = Vector2()
@@ -50,10 +54,10 @@ func _physics_process(_delta):
 
 func take_damage(amount: int):
 	hit_animation.play("flash")
+	health_bar.value = health
 	health -= amount
 	if health <= 0:
-		#queue_free()
-		print("dead, try again")
+		game_over._game_over()
 
 func shoot():
 	var new_bullet = bullet.instantiate()

@@ -8,10 +8,12 @@ enum BossState {
 
 @onready var hit_animation = $Sprite/FlashAnimation
 @onready var duck = get_parent().get_node("Duck")
+@onready var sprite: AnimatedSprite2D = $Sprite
+@onready var health_bar: ProgressBar = $Sprite/HealthBar
 
 @export var bullet: PackedScene = preload("res://Scenes/normal_bullet.tscn")
 @export_range(0, 20) var fire_rate: float = 1
-@export_range(1, 1000) var health: float = 100
+@export_range(1, 1000) var health: float = 510
 @export var speed: float = 75.0  # Make speed adjustable in editor
 
 var current_state = BossState.IDLE
@@ -60,6 +62,7 @@ func _physics_process(delta: float) -> void:
 		BossState.CHASE:			
 			# Calculate direction to player
 			var direction = (player_ref.global_position - global_position).normalized()
+			sprite.play("Walk")
 			# Set velocity
 			velocity = direction * speed
 			# Actually move the character
@@ -71,9 +74,9 @@ func _physics_process(delta: float) -> void:
 				var direction = (global_position - player_ref.global_position).normalized()
 				velocity = direction * speed
 				move_and_slide()
+				sprite.play("Walk")
 			else:
 				velocity = Vector2.ZERO
-
 	
 func _on_timer_timeout():
 	current_state = randi() % BossState.size()
@@ -81,6 +84,7 @@ func _on_timer_timeout():
 
 func take_damage(amount: int):
 	hit_animation.play("flash")
+	health_bar.value = health
 	health -= amount
 	if health <= 0:
 		queue_free()

@@ -1,30 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://jlbdyh3bsnk3"]
+[gd_scene load_steps=16 format=3 uid="uid://jlbdyh3bsnk3"]
 
-[ext_resource type="Texture2D" uid="uid://bostrm7v7m0sk" path="res://Assets/meanie.png" id="1_ger2c"]
-[ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="1_mxpig"]
 [ext_resource type="Script" path="res://Scenes/meanie.gd" id="1_v4c4b"]
+[ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="2_3x5h5"]
+[ext_resource type="Texture2D" uid="uid://dvhqaolow6led" path="res://Assets/Bread.png" id="2_afncv"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqa5m"]
-shader = ExtResource("1_mxpig")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xqngb"]
+shader = ExtResource("2_3x5h5")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_value = null
 
-[sub_resource type="Animation" id="Animation_qbk1k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [null]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fu1f"]
+atlas = ExtResource("2_afncv")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="Animation" id="Animation_cbree"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_52ufi"]
+atlas = ExtResource("2_afncv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j02n"]
+atlas = ExtResource("2_afncv")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cn201"]
+atlas = ExtResource("2_afncv")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xipi6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fu1f")
+}],
+"loop": true,
+"name": &"Normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52ufi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j02n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cn201")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_f1jlu"]
 resource_name = "flash"
 length = 0.1
 tracks/0/type = "value"
@@ -40,14 +66,35 @@ tracks/0/keys = {
 "values": [1.0, null]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xqtrx"]
-_data = {
-"RESET": SubResource("Animation_qbk1k"),
-"flash": SubResource("Animation_cbree")
+[sub_resource type="Animation" id="Animation_wnnvf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2y2gk"]
+_data = {
+"RESET": SubResource("Animation_wnnvf"),
+"flash": SubResource("Animation_f1jlu")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_catla"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwod8"]
+bg_color = Color(0.345892, 0.67911, 0.511915, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_30ly8"]
-size = Vector2(33, 48)
+size = Vector2(64, 69.5)
 
 [node name="meanie" type="CharacterBody2D"]
 collision_layer = 3
@@ -55,17 +102,31 @@ collision_mask = 3
 script = ExtResource("1_v4c4b")
 fire_rate = 0.3
 
-[node name="Sprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_eqa5m")
-position = Vector2(3.93391e-06, -3.93391e-06)
-scale = Vector2(2.9375, 2.9375)
-texture = ExtResource("1_ger2c")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_xqngb")
+scale = Vector2(2.03125, 2.03125)
+sprite_frames = SubResource("SpriteFrames_xipi6")
+animation = &"Walk"
+frame = 2
+frame_progress = 0.872081
 
 [node name="FlashAnimation" type="AnimationPlayer" parent="Sprite"]
 libraries = {
-"": SubResource("AnimationLibrary_xqtrx")
+"": SubResource("AnimationLibrary_2y2gk")
 }
 
+[node name="HealthBar" type="ProgressBar" parent="Sprite"]
+offset_left = -63.0154
+offset_top = -34.9538
+offset_right = 52.9846
+offset_bottom = -21.9538
+theme_override_styles/background = SubResource("StyleBoxFlat_catla")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hwod8")
+max_value = 510.0
+value = 510.0
+show_percentage = false
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, -1)
+visible = false
+position = Vector2(-13, 7.25)
 shape = SubResource("RectangleShape2D_30ly8")

@@ -1,39 +1,55 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnu0ym5x4io40"]
+[gd_scene load_steps=21 format=3 uid="uid://cnu0ym5x4io40"]
 
 [ext_resource type="Script" path="res://Scenes/Duck.gd" id="1_obeyv"]
 [ext_resource type="Texture2D" uid="uid://de5ip2k4vlsya" path="res://Assets/Player.png" id="2_2ei5w"]
 [ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="2_24qlw"]
+[ext_resource type="PackedScene" uid="uid://b4ghomynr337s" path="res://Scenes/Gun.tscn" id="4_hv763"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ynli"]
 shader = ExtResource("2_24qlw")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_value = null
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pljqb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_37jdc"]
 atlas = ExtResource("2_2ei5w")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y4gns"]
-atlas = ExtResource("2_2ei5w")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jb7qr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqvfr"]
 atlas = ExtResource("2_2ei5w")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ifcy1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjfvh"]
 atlas = ExtResource("2_2ei5w")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pnsp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rkjw"]
 atlas = ExtResource("2_2ei5w")
 region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj5xa"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qklj"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fygq1"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht7yv"]
+atlas = ExtResource("2_2ei5w")
+region = Rect2(160, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jtwqk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pljqb")
+"texture": SubResource("AtlasTexture_37jdc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqvfr")
 }],
 "loop": true,
 "name": &"Duck",
@@ -41,20 +57,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y4gns")
+"texture": SubResource("AtlasTexture_mjfvh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jb7qr")
+"texture": SubResource("AtlasTexture_7rkjw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ifcy1")
+"texture": SubResource("AtlasTexture_vj5xa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2pnsp")
+"texture": SubResource("AtlasTexture_3qklj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fygq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht7yv")
 }],
 "loop": true,
 "name": &"Walk",
-"speed": 7.5
+"speed": 8.5
 }]
 
 [sub_resource type="Animation" id="Animation_2kbvo"]
@@ -95,9 +117,16 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ept73"]
-radius = 21.2132
+radius = 29.1548
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8egfn"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dub5l"]
+bg_color = Color(0.345892, 0.67911, 0.511915, 1)
 
 [node name="Duck" type="CharacterBody2D"]
+position = Vector2(-2, -13)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_obeyv")
@@ -108,6 +137,7 @@ scale = Vector2(3.125, 3.125)
 sprite_frames = SubResource("SpriteFrames_jtwqk")
 animation = &"Walk"
 autoplay = "Duck"
+frame_progress = 0.828922
 
 [node name="FlashAnimation" type="AnimationPlayer" parent="Sprite"]
 libraries = {
@@ -115,5 +145,20 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_ept73")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -60.0
+offset_top = -63.0
+offset_right = 56.0
+offset_bottom = -36.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8egfn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dub5l")
+value = 100.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Gun" parent="." instance=ExtResource("4_hv763")]
+position = Vector2(7, 44)

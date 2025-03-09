@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk3ur7j1evipp"]
+
+[ext_resource type="Script" path="res://Script/game_over.gd" id="1_kin66"]
+
+[node name="GameOver" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_kin66")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 433.0
+offset_top = 188.0
+offset_right = 670.0
+offset_bottom = 390.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.04
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = 0.0799999
+offset_right = 33.0
+offset_bottom = 2.00002
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.391
+anchor_top = 0.349
+anchor_right = 0.556
+anchor_bottom = 0.444
+offset_left = 0.567963
+offset_top = -0.152008
+offset_right = -0.512085
+offset_bottom = 0.287964
+text = "You Died!
+You Should Get better :P"
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.414
+anchor_top = 0.458
+anchor_right = 0.549
+anchor_bottom = 0.542
+offset_left = -1.92804
+offset_top = 3.21597
+offset_right = -1.448
+offset_bottom = 2.78397
+text = "One more!"
+
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
