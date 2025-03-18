@@ -43,7 +43,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 script = ExtResource("4_86qf7")
 
+[node name="YouDied!" parent="." instance=ExtResource("3_hqa00")]
+
 [node name="Crosshair" parent="." instance=ExtResource("2_qxbxx")]
 position = Vector2(114, -23)
-
-[node name="YouDied!" parent="." instance=ExtResource("3_hqa00")]

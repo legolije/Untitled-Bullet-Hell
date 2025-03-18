@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk3ur7j1evipp"]
+[gd_scene load_steps=3 format=3 uid="uid://dk3ur7j1evipp"]
 
 [ext_resource type="Script" path="res://Script/game_over.gd" id="1_kin66"]
+[ext_resource type="PackedScene" uid="uid://bwwhxx7see3lo" path="res://Scenes/Trigger.tscn" id="2_xoupk"]
 
 [node name="GameOver" type="CanvasLayer"]
 process_mode = 3
@@ -50,5 +51,7 @@ offset_top = 3.21597
 offset_right = -1.448
 offset_bottom = 2.78397
 text = "One more!"
+
+[node name="Muzzle" parent="." instance=ExtResource("2_xoupk")]
 
 [connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]

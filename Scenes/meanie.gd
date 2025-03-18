@@ -14,7 +14,7 @@ enum BossState {
 @export var bullet: PackedScene = preload("res://Scenes/normal_bullet.tscn")
 @export_range(0, 20) var fire_rate: float = 1
 @export_range(1, 1000) var health: float = 510
-@export var speed: float = 75.0  # Make speed adjustable in editor
+@export var speed: float = 75.0 # Make speed adjustable in editor
 
 var current_state = BossState.IDLE
 var player_ref: CharacterBody2D
@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 		BossState.IDLE:
 			pass
 			
-		BossState.CHASE:			
+		BossState.CHASE:
 			# Calculate direction to player
 			var direction = (player_ref.global_position - global_position).normalized()
 			sprite.play("Walk")
@@ -84,12 +84,13 @@ func _on_timer_timeout():
 
 func take_damage(amount: int):
 	hit_animation.play("flash")
-	health_bar.value = health
 	health -= amount
+	health_bar.value = health
 	if health <= 0:
 		queue_free()
+		get_tree().reload_current_scene()
 
-func shoot():
+func shoot(): 
 	if can_shoot:
 		var new_bullet = bullet.instantiate()
 		new_bullet.global_position = global_position
@@ -101,6 +102,6 @@ func shoot():
 		can_shoot = false
 		$CooldownTimer.start(fire_rate)
 	
-
+	
 func _on_cooldown_timer_timeout():
 	can_shoot = true

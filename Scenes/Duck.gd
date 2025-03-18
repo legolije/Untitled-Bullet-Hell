@@ -54,8 +54,8 @@ func _physics_process(_delta):
 
 func take_damage(amount: int):
 	hit_animation.play("flash")
-	health_bar.value = health
 	health -= amount
+	health_bar.value = health
 	if health <= 0:
 		game_over._game_over()
 

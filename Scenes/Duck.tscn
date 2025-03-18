@@ -140,6 +140,7 @@ autoplay = "Duck"
 frame_progress = 0.828922
 
 [node name="FlashAnimation" type="AnimationPlayer" parent="Sprite"]
+process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_jkvvm")
 }
@@ -150,6 +151,7 @@ position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_ept73")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+process_mode = 3
 offset_left = -60.0
 offset_top = -63.0
 offset_right = 56.0

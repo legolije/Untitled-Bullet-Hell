@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4ghomynr337s"]
+[gd_scene load_steps=6 format=3 uid="uid://b4ghomynr337s"]
 
 [ext_resource type="Texture2D" uid="uid://cy82i4hpp0q6v" path="res://Assets/Da_Gun.png" id="1_k26nu"]
 [ext_resource type="Script" path="res://Script/gun.gd" id="2_72jjj"]
+[ext_resource type="Texture2D" uid="uid://bayltgyf522c" path="res://icon.svg" id="3_b0osv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0hr70"]
 atlas = ExtResource("1_k26nu")
@@ -22,6 +23,13 @@ animations = [{
 script = ExtResource("2_72jjj")
 
 [node name="GunAnimation" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(3.375, 3.58594)
 sprite_frames = SubResource("SpriteFrames_3k6yl")
 animation = &"Idle"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, -3)
+rotation = -0.0679623
+scale = Vector2(0.3125, 0.03125)
+texture = ExtResource("3_b0osv")
