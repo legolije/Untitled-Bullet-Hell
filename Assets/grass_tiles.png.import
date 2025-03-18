@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chpgs0rr86tu6"
-path="res://.godot/imported/Crosshair.png-5a969940a5d5ec866896c3bee6b2447d.ctex"
+uid="uid://debwerwo5fjpl"
+path="res://.godot/imported/grass_tiles.png-b9412a13552dd63135f762fa0cff0ba8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Crosshair.png"
-dest_files=["res://.godot/imported/Crosshair.png-5a969940a5d5ec866896c3bee6b2447d.ctex"]
+source_file="res://Assets/grass_tiles.png"
+dest_files=["res://.godot/imported/grass_tiles.png-b9412a13552dd63135f762fa0cff0ba8.ctex"]
 
 [params]
 

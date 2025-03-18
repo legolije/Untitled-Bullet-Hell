@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var hit_animation = $Sprite/FlashAnimation
 @onready var sprite: AnimatedSprite2D = $Sprite
-@export var bullet: PackedScene = preload("res://Scenes/normal_bullet.tscn")
+@export var bullet: PackedScene = preload("res://Scenes/Bullet.tscn")
 @export_range(0, 20) var fire_rate: float = 0.3
 @export_range(1, 1000) var health: float = 100
 @onready var health_bar: ProgressBar = $HealthBar

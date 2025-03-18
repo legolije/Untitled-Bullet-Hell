@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy82i4hpp0q6v"
-path="res://.godot/imported/Da_Gun.png-caa42abd7801136932253db1a878b709.ctex"
+uid="uid://00o8sqvi0its"
+path="res://.godot/imported/mud_tiles.png-fe955e28099f50d1b29eb9424b637d95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Da_Gun.png"
-dest_files=["res://.godot/imported/Da_Gun.png-caa42abd7801136932253db1a878b709.ctex"]
+source_file="res://Assets/mud_tiles.png"
+dest_files=["res://.godot/imported/mud_tiles.png-fe955e28099f50d1b29eb9424b637d95.ctex"]
 
 [params]
 

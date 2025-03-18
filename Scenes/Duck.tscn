@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://cnu0ym5x4io40"]
 
-[ext_resource type="Script" path="res://Scenes/Duck.gd" id="1_obeyv"]
-[ext_resource type="Texture2D" uid="uid://de5ip2k4vlsya" path="res://Assets/Player.png" id="2_2ei5w"]
+[ext_resource type="Script" path="res://Script/duck.gd" id="1_obeyv"]
+[ext_resource type="Texture2D" uid="uid://de5ip2k4vlsya" path="res://Assets/player.png" id="2_2ei5w"]
 [ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="2_24qlw"]
 [ext_resource type="PackedScene" uid="uid://b4ghomynr337s" path="res://Scenes/Gun.tscn" id="4_hv763"]
 

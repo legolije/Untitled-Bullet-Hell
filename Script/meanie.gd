@@ -11,7 +11,7 @@ enum BossState {
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health_bar: ProgressBar = $Sprite/HealthBar
 
-@export var bullet: PackedScene = preload("res://Scenes/normal_bullet.tscn")
+@export var bullet: PackedScene = preload("res://Scenes/Bullet.tscn")
 @export_range(0, 20) var fire_rate: float = 1
 @export_range(1, 1000) var health: float = 510
 @export var speed: float = 75.0 # Make speed adjustable in editor

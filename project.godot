@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Untitled_Breadloaf_Bulet_Hell"
-run/main_scene="res://Scenes/game.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-utils="*res://Script/global-utils.gd"
+utils="*res://Script/global_utils.gd"
 
 [display]
 

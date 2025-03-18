@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://jlbdyh3bsnk3"]
 
-[ext_resource type="Script" path="res://Scenes/meanie.gd" id="1_v4c4b"]
+[ext_resource type="Script" path="res://Script/meanie.gd" id="1_v4c4b"]
 [ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="2_3x5h5"]
-[ext_resource type="Texture2D" uid="uid://dvhqaolow6led" path="res://Assets/Bread.png" id="2_afncv"]
+[ext_resource type="Texture2D" uid="uid://dvhqaolow6led" path="res://Assets/bread.png" id="2_afncv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqngb"]
 shader = ExtResource("2_3x5h5")
