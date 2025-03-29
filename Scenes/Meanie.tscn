@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://jlbdyh3bsnk3"]
+[gd_scene load_steps=18 format=3 uid="uid://jlbdyh3bsnk3"]
 
-[ext_resource type="Script" path="res://Script/meanie.gd" id="1_v4c4b"]
-[ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="2_3x5h5"]
+[ext_resource type="Script" uid="uid://dfwbs6ddn8frv" path="res://Script/meanie.gd" id="1_v4c4b"]
+[ext_resource type="Shader" uid="uid://bbq0epkqo4xnl" path="res://Shaders/hit.gdshader" id="2_3x5h5"]
 [ext_resource type="Texture2D" uid="uid://dvhqaolow6led" path="res://Assets/bread.png" id="2_afncv"]
+[ext_resource type="AudioStream" uid="uid://c57kd4p7xkw6x" path="res://Assets/shoot2.sfxr" id="4_x4ymh"]
+[ext_resource type="AudioStream" uid="uid://dljs4hw7cvdeq" path="res://Assets/dead.sfxr" id="5_y3qfg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqngb"]
 shader = ExtResource("2_3x5h5")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/flash_value = null
+shader_parameter/flash_value = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2fu1f"]
 atlas = ExtResource("2_afncv")
@@ -83,8 +85,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2y2gk"]
 _data = {
-"RESET": SubResource("Animation_wnnvf"),
-"flash": SubResource("Animation_f1jlu")
+&"RESET": SubResource("Animation_wnnvf"),
+&"flash": SubResource("Animation_f1jlu")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_catla"]
@@ -96,11 +98,12 @@ bg_color = Color(0.345892, 0.67911, 0.511915, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_30ly8"]
 size = Vector2(64, 69.5)
 
-[node name="meanie" type="CharacterBody2D"]
-collision_layer = 3
-collision_mask = 3
+[node name="Meanie" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 11
 script = ExtResource("1_v4c4b")
 fire_rate = 0.3
+health = 50.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_xqngb")
@@ -112,8 +115,9 @@ frame_progress = 0.872081
 
 [node name="FlashAnimation" type="AnimationPlayer" parent="Sprite"]
 process_mode = 3
+process_priority = 1
 libraries = {
-"": SubResource("AnimationLibrary_2y2gk")
+&"": SubResource("AnimationLibrary_2y2gk")
 }
 
 [node name="HealthBar" type="ProgressBar" parent="Sprite"]
@@ -123,11 +127,17 @@ offset_right = 52.9846
 offset_bottom = -21.9538
 theme_override_styles/background = SubResource("StyleBoxFlat_catla")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hwod8")
-max_value = 510.0
-value = 510.0
+max_value = 250.0
+value = 250.0
 show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(-13, 7.25)
 shape = SubResource("RectangleShape2D_30ly8")
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_x4ymh")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_y3qfg")

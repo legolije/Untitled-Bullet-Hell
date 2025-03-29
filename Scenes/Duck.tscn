@@ -1,14 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://cnu0ym5x4io40"]
+[gd_scene load_steps=22 format=3 uid="uid://cnu0ym5x4io40"]
 
-[ext_resource type="Script" path="res://Script/duck.gd" id="1_obeyv"]
+[ext_resource type="Script" uid="uid://c4l8eg01b835p" path="res://Script/duck.gd" id="1_obeyv"]
 [ext_resource type="Texture2D" uid="uid://de5ip2k4vlsya" path="res://Assets/player.png" id="2_2ei5w"]
-[ext_resource type="Shader" path="res://Shaders/hit.gdshader" id="2_24qlw"]
+[ext_resource type="Shader" uid="uid://bbq0epkqo4xnl" path="res://Shaders/hit.gdshader" id="2_24qlw"]
 [ext_resource type="PackedScene" uid="uid://b4ghomynr337s" path="res://Scenes/Gun.tscn" id="4_hv763"]
+[ext_resource type="AudioStream" uid="uid://laoikief3n4r" path="res://Assets/shoot.sfxr" id="5_qiktx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ynli"]
 shader = ExtResource("2_24qlw")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/flash_value = null
+shader_parameter/flash_value = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37jdc"]
 atlas = ExtResource("2_2ei5w")
@@ -112,8 +113,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jkvvm"]
 _data = {
-"RESET": SubResource("Animation_2kbvo"),
-"flash": SubResource("Animation_k7dih")
+&"RESET": SubResource("Animation_2kbvo"),
+&"flash": SubResource("Animation_k7dih")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ept73"]
@@ -126,7 +127,6 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(0.345892, 0.67911, 0.511915, 1)
 
 [node name="Duck" type="CharacterBody2D"]
-position = Vector2(-2, -13)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_obeyv")
@@ -141,8 +141,9 @@ frame_progress = 0.828922
 
 [node name="FlashAnimation" type="AnimationPlayer" parent="Sprite"]
 process_mode = 3
+process_priority = 2
 libraries = {
-"": SubResource("AnimationLibrary_jkvvm")
+&"": SubResource("AnimationLibrary_jkvvm")
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -163,4 +164,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Gun" parent="." instance=ExtResource("4_hv763")]
-position = Vector2(7, 44)
+position = Vector2(26, 22)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qiktx")

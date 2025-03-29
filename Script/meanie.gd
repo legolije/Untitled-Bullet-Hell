@@ -7,9 +7,10 @@ enum BossState {
 }
 
 @onready var hit_animation = $Sprite/FlashAnimation
-@onready var duck = get_parent().get_node("Duck")
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health_bar: ProgressBar = $Sprite/HealthBar
+@onready var gun_audio_player: AudioStreamPlayer2D = $ShootSound
+@onready var death_audio_player: AudioStreamPlayer2D = $ShootSound
 
 @export var bullet: PackedScene = preload("res://Scenes/Bullet.tscn")
 @export_range(0, 20) var fire_rate: float = 1
@@ -22,6 +23,7 @@ var safe_distance = 300.0
 var timer: Timer
 var can_shoot = true
 
+signal boss_died
 
 func _ready():
 	# Direct node reference - adjust the path to match Duck scene structure
@@ -87,17 +89,22 @@ func take_damage(amount: int):
 	health -= amount
 	health_bar.value = health
 	if health <= 0:
-		queue_free()
-		get_tree().reload_current_scene()
+		print(health)
+		print("emit signal")
+		#queue_free()
+		#get_tree().reload_current_scene()
+		death_audio_player.play()
+		emit_signal("boss_died")
 
 func shoot(): 
 	if can_shoot:
 		var new_bullet = bullet.instantiate()
 		new_bullet.global_position = global_position
-		new_bullet.shoot_towards(duck.global_position)
+		new_bullet.shoot_towards(player_ref.global_position)
 		new_bullet.collision_layer = utils.collision_values([4])
 		new_bullet.collision_mask = utils.collision_values([2])
 		get_tree().root.call_deferred("add_child", new_bullet)
+		gun_audio_player.play()
 		
 		can_shoot = false
 		$CooldownTimer.start(fire_rate)

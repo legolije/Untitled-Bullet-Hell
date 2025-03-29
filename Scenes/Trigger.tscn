@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwwhxx7see3lo"]
 
-[ext_resource type="Script" path="res://Script/trigger.gd" id="1_gv1l8"]
+[ext_resource type="Script" uid="uid://diup6ysb4g1yv" path="res://Script/trigger.gd" id="1_gv1l8"]
 [ext_resource type="Texture2D" uid="uid://d2gwn5s6traxl" path="res://Assets/crosshair.png" id="2_ghp60"]
 
 [node name="Muzzle" type="Node2D"]

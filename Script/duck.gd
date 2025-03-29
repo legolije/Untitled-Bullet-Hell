@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var gun: Node2D = $Gun
 @onready var game_over: CanvasLayer = $"../YouDied!"
+@onready var level_spawner: Node2D = %LevelSpawner
+@onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 var SPEED = 150
@@ -66,6 +68,7 @@ func shoot():
 	new_bullet.shoot_towards(get_global_mouse_position())
 	new_bullet.collision_layer = utils.collision_values([4])
 	new_bullet.collision_mask = utils.collision_values([3])
+	audio_player.play()
 
 	can_shoot = false
 	$CooldownTimer.start(fire_rate)

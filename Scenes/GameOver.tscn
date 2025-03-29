@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dk3ur7j1evipp"]
 
-[ext_resource type="Script" path="res://Script/game_over.gd" id="1_kin66"]
+[ext_resource type="Script" uid="uid://by6evvt30s8y7" path="res://Script/game_over.gd" id="1_kin66"]
 [ext_resource type="PackedScene" uid="uid://bwwhxx7see3lo" path="res://Scenes/Trigger.tscn" id="2_xoupk"]
 
 [node name="GameOver" type="CanvasLayer"]
