@@ -1,14 +1,13 @@
 extends CharacterBody2D
 
-@onready var hit_animation = $Sprite/FlashAnimation
-@onready var sprite: AnimatedSprite2D = $Sprite
-@export var bullet: PackedScene = preload("res://Scenes/Bullet.tscn")
 @export_range(0, 20) var fire_rate: float = 0.3
 @export_range(1, 1000) var health: float = 100
+
+@onready var hit_animation = $Sprite/FlashAnimation
+@onready var sprite: AnimatedSprite2D = $Sprite
+@export var bullet_scene: PackedScene = preload("res://Scenes/Bullet.tscn")
 @onready var health_bar: ProgressBar = $HealthBar
-@onready var gun: Node2D = $Gun
 @onready var game_over: CanvasLayer = $"../YouDied!"
-@onready var level_spawner: Node2D = %LevelSpawner
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
@@ -62,7 +61,7 @@ func take_damage(amount: int):
 		game_over._game_over()
 
 func shoot():
-	var new_bullet = bullet.instantiate()
+	var new_bullet = bullet_scene.instantiate()
 	get_tree().root.call_deferred("add_child", new_bullet)
 	new_bullet.global_position = global_position
 	new_bullet.shoot_towards(get_global_mouse_position())

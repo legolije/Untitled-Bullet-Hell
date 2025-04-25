@@ -6,40 +6,32 @@ enum BossState {
 	RETREAT
 }
 
+@export var bullet_scene: PackedScene = preload("res://Scenes/Bullet.tscn")
+@export_range(0, 20) var fire_rate: float = 1
+@export_range(1, 1000) var health: float = 510
+@export var speed: float = 75.0 # Make speed adjustable in editor
+
 @onready var hit_animation = $Sprite/FlashAnimation
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var health_bar: ProgressBar = $Sprite/HealthBar
 @onready var gun_audio_player: AudioStreamPlayer2D = $ShootSound
 @onready var death_audio_player: AudioStreamPlayer2D = $ShootSound
-
-@export var bullet: PackedScene = preload("res://Scenes/Bullet.tscn")
-@export_range(0, 20) var fire_rate: float = 1
-@export_range(1, 1000) var health: float = 510
-@export var speed: float = 75.0 # Make speed adjustable in editor
+@onready var player_ref: CharacterBody2D = $"../Duck"
 
 var current_state = BossState.IDLE
-var player_ref: CharacterBody2D
 var safe_distance = 300.0
-var timer: Timer
+var meanie_state_timer: Timer
 var can_shoot = true
 
 signal boss_died
 
 func _ready():
-	# Direct node reference - adjust the path to match Duck scene structure
-	player_ref = get_tree().root.get_node("Game/Duck")
-
-	if !player_ref:
-		print("Player not found - check the node path!")
-		# Try group as fallback
-		player_ref = get_tree().get_first_node_in_group("Duck")
-
-	timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = 2.5
-	timer.timeout.connect(_on_timer_timeout)
-	timer.name = "MeanineSwitchStateTimer"
-	timer.start()
+	meanie_state_timer = Timer.new()
+	add_child(meanie_state_timer)
+	meanie_state_timer.wait_time = 2.5
+	meanie_state_timer.timeout.connect(_on_timer_timeout)
+	meanie_state_timer.name = "MeanineSwitchStateTimer"
+	meanie_state_timer.start()
 	
 	var cooldown_timer = Timer.new()
 	add_child(cooldown_timer)
@@ -98,7 +90,7 @@ func take_damage(amount: int):
 
 func shoot(): 
 	if can_shoot:
-		var new_bullet = bullet.instantiate()
+		var new_bullet = bullet_scene.instantiate()
 		new_bullet.global_position = global_position
 		new_bullet.shoot_towards(player_ref.global_position)
 		new_bullet.collision_layer = utils.collision_values([4])

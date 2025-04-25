@@ -1,8 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4ghomynr337s"]
+[gd_scene load_steps=6 format=3 uid="uid://d1an613oo1sud"]
 
 [ext_resource type="Texture2D" uid="uid://cy82i4hpp0q6v" path="res://Assets/gun.png" id="1_k26nu"]
-[ext_resource type="Script" uid="uid://du835b5ydt1s4" path="res://Script/gun.gd" id="2_72jjj"]
 [ext_resource type="Texture2D" uid="uid://bayltgyf522c" path="res://icon.svg" id="3_b0osv"]
+
+[sub_resource type="GDScript" id="GDScript_u7kx4"]
+script/source = "extends Node2D
+
+@export var orbit_radius: float = 30.0  # Distance from player center
+@export var gun_offset: Vector2 = Vector2(0, 0)  # Offset from orbit position
+
+@onready var gun_animation: AnimatedSprite2D = $GunAnimation
+@onready var attached_to: Node2D = $\"..\"
+
+
+func _process(delta: float) -> void:
+	var mouse_position = get_global_mouse_position()
+	var player_position = attached_to.global_position
+
+	# Calculate direction to mouse
+	var direction = (mouse_position - player_position).normalized()
+
+	# Reset rotation first (important!)
+	rotation = 0
+
+	# Determine if we need to flip based on mouse position
+	var flip = mouse_position.x < player_position.x
+	gun_animation.flip_v = flip
+
+	# Position gun on circle around player with offset
+	position = direction * orbit_radius
+
+	# Apply the gun offset (adjustable in inspector)
+	position += gun_offset
+
+	# Make gun look at mouse
+	look_at(mouse_position)
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0hr70"]
 atlas = ExtResource("1_k26nu")
@@ -20,7 +53,7 @@ animations = [{
 }]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("2_72jjj")
+script = SubResource("GDScript_u7kx4")
 
 [node name="GunAnimation" type="AnimatedSprite2D" parent="."]
 visible = false

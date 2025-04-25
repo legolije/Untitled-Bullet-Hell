@@ -1,7 +1,8 @@
 extends Camera2D
 
 
-@onready var player = get_node("../Duck")  # Adjust the path to your character node
+@onready var player = get_node("../Duck") 
+
 var following_player = true
 
 func _process(delta):

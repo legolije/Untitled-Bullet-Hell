@@ -1,6 +1,7 @@
 extends Area2D
 
 @export var speed: float = 750.00
+
 var direction: Vector2
 
 func shoot_towards(target_position: Vector2):
